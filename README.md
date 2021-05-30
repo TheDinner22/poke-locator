@@ -6,4 +6,5 @@ uses:
 pyautogui - for screenshots
 pytesseract - image to text
 opencv-python - image manipulation
+pynput - detect mouse input
 
