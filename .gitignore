@@ -2,3 +2,4 @@ help
 *.png
 !fake.png
 !real.png
+__pycache__
