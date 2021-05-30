@@ -1,0 +1,4 @@
+help
+*.png
+!fake.png
+!real.png
