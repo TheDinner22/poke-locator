@@ -1,0 +1,1 @@
+pytesseract_location = r'C:\\Users\\jgood\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'

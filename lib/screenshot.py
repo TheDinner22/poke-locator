@@ -1,5 +1,5 @@
 # dependencies
-import os, sys, pyautogui, time
+import os, sys, pyautogui
 from pynput import mouse
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # adds project dir to places it looks for the modules
@@ -73,7 +73,6 @@ class Camera():
         pyautogui.screenshot(self.screenshot_file_path, region=((self.left, self.top, self.width, self.height)))
 
 if __name__ == "__main__":
-    time.sleep(5)
     camera = Camera(on_click)
     camera.start_mouse_listener()
     camera.take_screenshot()
