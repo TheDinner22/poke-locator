@@ -26,9 +26,11 @@ class Speaker():
                     if extension == 'mp3':
                         flag = False
                         break
-            # just play the file
+            # just play the file 3 times
+            number_of_plays = 3
             full_path = self.base_path + file_name
-            playsound(full_path)
+            for _x in range(0,number_of_plays):
+                playsound(full_path)
 
 if __name__ == "__main__":
     speaker = Speaker()
