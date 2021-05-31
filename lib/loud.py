@@ -1,6 +1,6 @@
 #https://pypi.org/project/playsound/
 # dependencies
-import os, sys, random, pyautogui
+import os, sys, random
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # adds project dir to places it looks for the modules
 sys.path.append(BASE_PATH)
@@ -8,9 +8,10 @@ sys.path.append(BASE_PATH)
 from playsound import playsound
 
 class Speaker():
-    def __init__(self):
+    def __init__(self, number_of_plays):
         self.base_path = '.data/sounds/'
         self.contents = os.listdir(self.base_path)
+        self.number_of_plays = number_of_plays if number_of_plays > 0 else 1 
     
     def play(self):
         '''plays a random file from the sounds dir'''
@@ -27,9 +28,8 @@ class Speaker():
                         flag = False
                         break
             # just play the file 3 times
-            number_of_plays = 3
             full_path = self.base_path + file_name
-            for _x in range(0,number_of_plays):
+            for _x in range(0,self.number_of_plays):
                 playsound(full_path)
 
 if __name__ == "__main__":

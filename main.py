@@ -8,6 +8,7 @@ from test.main_test import _App
 from lib.screenshot import Camera, on_click
 from lib.proccess_img import Processor
 from lib.proccess_text import Text_Processor
+from lib.loud import Speaker
 
 running = True
 print('type "help" for help')
@@ -31,6 +32,7 @@ while running:
         # loop
         flag = True
         while flag:
+
             # take screen shot
             camera.take_screenshot()
 
@@ -45,15 +47,12 @@ while running:
             text_processor = Text_Processor(text)
             text_processor.proccess_text()
 
-            print(text_processor.pokemon_spawned)
-
-            # TODO del me
-            if text_processor.pokemon_spawned:
-                flag = False
-                break
-            #
+            print(text_processor.pokemon_spawned) #TODO del me
 
             # alert if found
+            if text_processor.pokemon_spawned:
+                speaker = Speaker(3)
+                speaker.play()
 
             # wait 
             time.sleep(2)
