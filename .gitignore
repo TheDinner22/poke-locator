@@ -2,5 +2,10 @@ help
 *.png
 !fake.png
 !real.png
+!real1.png
+!real2.png
+!real3.png
+*.mp3
+!main.mp3
 __pycache__
 main-check.py
