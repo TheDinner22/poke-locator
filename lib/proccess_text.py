@@ -47,17 +47,26 @@ class Text_Processor():
             for occurrence in poke_occurrences:
                 if trimmed_string.find(occurrence) != -1:
                     start_i = trimmed_string.find(occurrence)
-                    end_i = start_i + 30 if start_i + 30 < len(trimmed_string)-1 else len(trimmed_string)-1
+                    end_i = start_i + 30 if start_i + 30 < len(trimmed_string) else len(trimmed_string)
                     spliced_string = trimmed_string[start_i:end_i]
+
+                    #print(spliced_string)
+
+                    # remove the occurence
+                    trimmed_string = trimmed_string.replace(occurrence,'',1)
+
                     # TODO this is risky and might not work
-                    maybe_name = spliced_string.split(' ')[1]
+                    maybe_name = spliced_string.split(' ')[1] if len(spliced_string.split(' ')) >= 2 else spliced_string
                     
                     for name in self.pokemon_list:
-                        if fuzz.ratio(name,maybe_name) >= 80:
+                        if name in spliced_string:
+                            self.pokemon_spawned = True
+                            return True
+                        elif fuzz.ratio(name,maybe_name) >= 80:
                             print('ratio went through')
                             self.pokemon_spawned = True
                             return True
-                        elif fuzz.partial_ratio(name,spliced_string) >= 85:
+                        elif fuzz.partial_ratio(name,spliced_string) >= 83:
                             print('p-ratio went through')
                             self.pokemon_spawned = True
                             return True
@@ -71,6 +80,7 @@ class Text_Processor():
 if __name__ == "__main__":
     text = '& Snorlaxa : .ar Lvl: 40 HP: 134/178ag, HServinea 2 :ay Lvl: 24 HP: 69/69  & EmolgaLvl: 36 HP: 89/89TyphlosionLvl: 38 HP: 108/108Laprashe a(Debuagl: Hitboxes: shownnutsdoin our Discord https//discordgg/PokecentralPokénon Heatran MesaPro GlazeFrost > GLAlzz_ Heatran despaunex xdYour party is full, Deino was sent to your PC!Pro GlazeFrost > That was fastAlzz_ YerPro Tieger_ > Pog i♀'.strip().lower()
     text = 'pokécrates > grunki opened a rare crate!lagpokénon vietini savannahom ion aronator3a6a = fieavailable subcommands: extend and trustpro maisan_is_uaifu > pm me if anyones doing'
+    text = 'okemon okemonpokécrapokénon  savannahom iontes > grunki opened a rare crate!lagpokénon  savannahom ion aronator3a6a = fieavailable subcommands: extend and pokénon vietini savannahom iontrustpro maisan_is_uaifu > pm me if anyones doing'
     text_processor = Text_Processor(text)
     my_bool = text_processor.proccess_text()
     print(text_processor.pokemon_spawned)
