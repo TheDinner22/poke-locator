@@ -25,14 +25,15 @@ class Text_Processor():
     def proccess_text(self):
         # make sure self.pokemon_spawned = false
         self.pokemon_spawned = False
+        flag1 = False
 
         # see if any of the acceptable spellings of pokemon are present
         for spelling in self.pokemon_spellings:
             if self.origonal_text.find(spelling) != -1:
-                self.pokemon_spawned = True
+                flag1 = True
         
         # if there was a pokemon spawned see if it was a ledgendary
-        if self.pokemon_spawned:
+        if flag1:
             # find all instances of the work pokemon
             poke_occurrences = []
             for spelling in self.pokemon_spellings_trimmed:
@@ -52,6 +53,7 @@ class Text_Processor():
                         if name in spliced_string:
                             self.pokemon_spawned = True
                             return True
+        return self.pokemon_spawned
                 
 
 
