@@ -23,7 +23,7 @@ class Processor():
         (thresh, self.black_and_white_img) = cv2.threshold(gray_image, 172, 255, cv2.THRESH_BINARY)
     
     def image_to_txt(self):
-        self.text_from_img = pytesseract.image_to_string(self.black_and_white_img)
+        self.text_from_img = pytesseract.image_to_string(self.black_and_white_img).strip().lower()
 
 
 if __name__ == "__main__":
