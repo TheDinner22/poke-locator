@@ -30,6 +30,8 @@ def test1(done):
         raise AssertionError('importing/using one of the libraries from this project caused this error:\n' + e)
 unit_tests['make sure all of the needed libraries are installed and working'] = test1
 
+
+'''
 # example tests
 def one_plus_one_is_two(done):
     outcome = 1+1
@@ -44,3 +46,4 @@ def one_plus_one_is_three(done):
     assert outcome == desired_outcome, "1+1 was not equal to three"
     done("one plus one is equal to three")
 unit_tests["one plus one is equal to three"] = one_plus_one_is_three
+'''
