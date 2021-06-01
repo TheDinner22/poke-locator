@@ -50,7 +50,7 @@ class Text_Processor():
                     end_i = start_i + 30 if start_i + 30 < len(trimmed_string) else len(trimmed_string)
                     spliced_string = trimmed_string[start_i:end_i]
 
-                    #print(spliced_string)
+                    #TODO del meprint(spliced_string)
 
                     # remove the occurence
                     trimmed_string = trimmed_string.replace(occurrence,'',1)
@@ -63,11 +63,11 @@ class Text_Processor():
                             self.pokemon_spawned = True
                             return True
                         elif fuzz.ratio(name,maybe_name) >= 80:
-                            print('ratio went through')
+                            #print('ratio went through')
                             self.pokemon_spawned = True
                             return True
                         elif fuzz.partial_ratio(name,spliced_string) >= 83:
-                            print('p-ratio went through')
+                            #print('p-ratio went through')
                             self.pokemon_spawned = True
                             return True
         return self.pokemon_spawned
