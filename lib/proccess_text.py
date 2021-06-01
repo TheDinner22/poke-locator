@@ -60,14 +60,15 @@ class Text_Processor():
                     
                     for name in self.pokemon_list:
                         if name in spliced_string:
+                            print(spliced_string)
                             self.pokemon_spawned = True
                             return True
                         elif fuzz.ratio(name,maybe_name) >= 80:
-                            #print('ratio went through')
+                            print(maybe_name)
                             self.pokemon_spawned = True
                             return True
                         elif fuzz.partial_ratio(name,spliced_string) >= 83:
-                            #print('p-ratio went through')
+                            print(spliced_string)
                             self.pokemon_spawned = True
                             return True
         return self.pokemon_spawned
@@ -81,6 +82,7 @@ if __name__ == "__main__":
     text = '& Snorlaxa : .ar Lvl: 40 HP: 134/178ag, HServinea 2 :ay Lvl: 24 HP: 69/69  & EmolgaLvl: 36 HP: 89/89TyphlosionLvl: 38 HP: 108/108Laprashe a(Debuagl: Hitboxes: shownnutsdoin our Discord https//discordgg/PokecentralPokénon Heatran MesaPro GlazeFrost > GLAlzz_ Heatran despaunex xdYour party is full, Deino was sent to your PC!Pro GlazeFrost > That was fastAlzz_ YerPro Tieger_ > Pog i♀'.strip().lower()
     text = 'pokécrates > grunki opened a rare crate!lagpokénon vietini savannahom ion aronator3a6a = fieavailable subcommands: extend and trustpro maisan_is_uaifu > pm me if anyones doing'
     text = 'okemon okemonpokécrapokénon  savannahom iontes > grunki opened a rare crate!lagpokénon  savannahom ion aronator3a6a = fieavailable subcommands: extend and pokénon vietini savannahom iontrustpro maisan_is_uaifu > pm me if anyones doing'
+    text = 'hnorthfleet ok that was my last one  zé3us_ how do you sell pokemon legend animewaifupig > selling maiden cress and elegant kyurem  carela? on ats  thedinner22 where does slugma spawn?  carel27 you sell pokemon on “ots'
     text_processor = Text_Processor(text)
     my_bool = text_processor.proccess_text()
     print(text_processor.pokemon_spawned)

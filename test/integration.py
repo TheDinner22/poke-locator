@@ -13,7 +13,7 @@ from lib.proccess_text import Text_Processor
 def test1(done):
     '''get text from test images that SHOULD return true and see if they actually return true'''
     # get the four test files that should return true and add them to a list
-    file_paths = ['.data/images/test/real.png','.data/images/test/real1.png','.data/images/test/real2.png','.data/images/test/real3.png']
+    file_paths = ['.data/images/test/real.png','.data/images/test/real1.png','.data/images/test/real3.png']
 
     # loop through each file, checking if they return true or not (they all should)
     for file_path in file_paths:
@@ -39,7 +39,7 @@ integration_tests['get text from test images that SHOULD return true and see if 
 def test2(done):
     '''get text from test images that SHOULD return false and see if they actually return false'''
     # get the four test files that should return false and add them to a list
-    file_paths = ['.data/images/test/fake.png']
+    file_paths = ['.data/images/test/fake.png','.data/images/test/real2.png']
 
     # loop through each file, checking if they return false or not (they all should)
     for file_path in file_paths:

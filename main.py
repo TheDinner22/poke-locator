@@ -1,5 +1,5 @@
 # dependencies
-import os, sys, time
+import os, sys, time, datetime, cv2
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # adds project dir to places it looks for the modules
 sys.path.append(BASE_PATH)
@@ -49,8 +49,18 @@ while running:
 
             print(text_processor.pokemon_spawned) #TODO del me
 
-            # alert if found
+            # alert and save the ss if found
             if text_processor.pokemon_spawned:
+                # get the the ss
+                ss = processor.original_image
+                # generate file name
+                base_path = '.data/images/successes/'
+                file_name = str(datetime.datetime.now())
+                file_name = file_name.replace('-','_').replace('.',':').replace(':','-') + '.png'
+                # save the image
+                cv2.imwrite(base_path + file_name, ss)
+
+                # alert the user
                 speaker = Speaker(3)
                 speaker.play()
 
