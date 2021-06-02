@@ -9,6 +9,7 @@ from lib.screenshot import Camera, on_click
 from lib.proccess_img import Processor
 from lib.proccess_text import Text_Processor
 from lib.loud import Speaker
+from lib.key_press import Controler
 
 running = True
 print('type "help" for help')
@@ -60,9 +61,28 @@ while running:
                 # save the image
                 cv2.imwrite(base_path + file_name, ss)
 
-                # alert the user
-                speaker = Speaker(3)
-                speaker.play()
+                # type lt and see if the red text can be found on the screen
+                lt_path = '.data/images/lt.png'
+                controler = Controler()
+                controler.type_lt()
+
+                # screen shot
+                camera.take_screenshot()
+
+                # locate the red text
+                method = cv2.TM_SQDIFF_NORMED
+                small_img = cv2.imread(lt_path)
+                large_img = cv2.imread('.data/images/screenshot.png')
+                result = cv2.matchTemplate(small_img, large_img, method)
+                _min_val, confidence, _min_loc, _max_loc = cv2.minMaxLoc(result)
+
+                located = True if confidence >= 0.8 else False
+                
+                # if the red text was not located alert the user
+                if located: #TODO add not here
+                    # alert the user
+                    speaker = Speaker(3)
+                    speaker.play()
 
             # wait 
             time.sleep(2)

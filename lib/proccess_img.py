@@ -27,7 +27,7 @@ class Processor():
 
 
 if __name__ == "__main__":
-    processor = Processor('.data/images/test/real1.png')
+    processor = Processor('.data/images/successes/2021_06_01 15-35-24-741371.png')
     processor.turn_black_and_white()
     processor.image_to_txt()
 
