@@ -1,5 +1,6 @@
 # dependencies
-import os, sys, time, datetime, cv2
+import os, sys, time, datetime, cv2, pytesseract
+from fuzzywuzzy import fuzz
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # adds project dir to places it looks for the modules
 sys.path.append(BASE_PATH)
@@ -10,6 +11,9 @@ from lib.proccess_img import Processor
 from lib.proccess_text import Text_Processor
 from lib.loud import Speaker
 from lib.key_press import Controler
+from lib.config import pytesseract_location
+
+pytesseract.pytesseract.tesseract_cmd = pytesseract_location
 
 running = True
 print('type "help" for help')
@@ -50,31 +54,47 @@ while running:
 
             # alert and save the ss if found
             if text_processor.pokemon_spawned:
-                # get the the ss
+                '''# get the the ss
                 ss = processor.original_image
                 # generate file name
                 base_path = '.data/images/successes/'
                 file_name = str(datetime.datetime.now())
                 file_name = file_name.replace('-','_').replace('.',':').replace(':','-') + '.png'
                 # save the image
-                cv2.imwrite(base_path + file_name, ss)
+                cv2.imwrite(base_path + file_name, ss)'''
 
                 # type lt and see if the red text can be found on the screen
-                lt_path = '.data/images/lt.png'
                 controler = Controler()
                 controler.type_lt()
 
                 # screen shot
                 camera.take_screenshot()
 
-                # locate the red text
-                method = cv2.TM_CCOEFF_NORMED
-                small_img = cv2.imread(lt_path)
-                large_img = cv2.imread('.data/images/screenshot.png')
-                result = cv2.matchTemplate(small_img, large_img, method)
-                _min_val, confidence, _min_loc, _max_loc = cv2.minMaxLoc(result)
+                # convert to gray
+                img = cv2.imread('.data/images/screenshot.png')
+                gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                (thresh, gray_image) = cv2.threshold(gray_image, 130, 255, cv2.THRESH_BINARY)
 
-                located = True if confidence >= 0.75 else False
+                # convert to string
+                text = pytesseract.image_to_string(gray_image).strip().lower().replace('\n',' ')
+                
+                text_list = text.split(' ')
+
+                # compare to lt when no leggy
+                no_leggy = 'no legendary pokémon is spawned on you'
+                for x in range(0,len(text_list)):
+                    spliced_text = ''
+                    start_i = x
+                    end_i = x + 7 if x + 7 < len(text_list) else len(text_list)
+                    for x in range(start_i,end_i):
+                        spliced_text += text_list[x] + ' '
+                    confidence = fuzz.ratio(spliced_text,no_leggy)
+
+                    located = True if confidence >= 90 else False
+                    if located:
+                        break
+
+                cv2.imwrite('.data/images/del.png', gray_image)
                 
                 # if the red text was not located alert the user
                 if not located:
