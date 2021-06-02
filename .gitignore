@@ -5,6 +5,7 @@ help
 !real1.png
 !real2.png
 !real3.png
+!lt.png
 *.mp3
 !main.mp3
 __pycache__
