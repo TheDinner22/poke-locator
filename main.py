@@ -48,8 +48,6 @@ while running:
             text_processor = Text_Processor(text)
             text_processor.proccess_text()
 
-            print(text_processor.pokemon_spawned) #TODO del me
-
             # alert and save the ss if found
             if text_processor.pokemon_spawned:
                 # get the the ss
@@ -70,16 +68,16 @@ while running:
                 camera.take_screenshot()
 
                 # locate the red text
-                method = cv2.TM_SQDIFF_NORMED
+                method = cv2.TM_CCOEFF_NORMED
                 small_img = cv2.imread(lt_path)
                 large_img = cv2.imread('.data/images/screenshot.png')
                 result = cv2.matchTemplate(small_img, large_img, method)
                 _min_val, confidence, _min_loc, _max_loc = cv2.minMaxLoc(result)
 
-                located = True if confidence >= 0.8 else False
+                located = True if confidence >= 0.75 else False
                 
                 # if the red text was not located alert the user
-                if located: #TODO add not here
+                if not located:
                     # alert the user
                     speaker = Speaker(3)
                     speaker.play()

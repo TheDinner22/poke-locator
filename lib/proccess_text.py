@@ -17,7 +17,7 @@ pytesseract.pytesseract.tesseract_cmd = pytesseract_location
 class Text_Processor():
     def __init__(self, text_from_image):
         self.origonal_text = text_from_image
-        self.pokemon_list = pokemon_list #TODO i may need to be an arg when name != main
+        self.pokemon_list = pokemon_list
         self.pokemon_spellings = ['pokénon','pokenon','pokemon','pokémon','okénon','okenon','okemon','okémon']
         self.pokemon_spellings_trimmed = ['okénon','okenon','okemon','okémon'] 
         self.pokemon_spawned = False
@@ -50,8 +50,6 @@ class Text_Processor():
                     end_i = start_i + 30 if start_i + 30 < len(trimmed_string) else len(trimmed_string)
                     spliced_string = trimmed_string[start_i:end_i]
 
-                    #TODO del meprint(spliced_string)
-
                     # remove the occurence
                     trimmed_string = trimmed_string.replace(occurrence,'',1)
 
@@ -60,15 +58,15 @@ class Text_Processor():
                     
                     for name in self.pokemon_list:
                         if name in spliced_string:
-                            print(spliced_string)
+                            #print(spliced_string)
                             self.pokemon_spawned = True
                             return True
                         elif fuzz.ratio(name,maybe_name) >= 80:
-                            print(maybe_name)
+                            #print(maybe_name)
                             self.pokemon_spawned = True
                             return True
                         elif fuzz.partial_ratio(name,spliced_string) >= 83:
-                            print(spliced_string)
+                            #print(spliced_string)
                             self.pokemon_spawned = True
                             return True
         return self.pokemon_spawned
